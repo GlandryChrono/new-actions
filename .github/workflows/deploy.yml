@@ -1,16 +1,17 @@
 name: Deployment
+
 on:
   push:
     branches:
       - main
       - dev
+
 env: 
   MONGO_DB_NAME: gha-demo
   PORT: 8080
+
 jobs:
   test:
-    #env:
-      # only available in the test jobs 
     environment: testing
     runs-on: ubuntu-latest
     steps:
@@ -29,10 +30,13 @@ jobs:
         run: npm test
       - name: Output information
         run: echo "MONGODB_USERNAME: ${{env.MONGODB_USERNAME}} "
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Output information
-        run: |        
-          echo "..."
+      - name: Deploy to server
+        run: |
+          # Add your deployment commands here
+          # For example:
+          # ssh user@server 'cd /path/to/your/app && git pull origin main && npm install && npm run build && pm2 restart your-app'
